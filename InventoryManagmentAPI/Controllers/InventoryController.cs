@@ -28,7 +28,7 @@ namespace InventoryManagmentAPI.Controllers
 
             var response = new InvResponse();
 
-            response.statusCode = 400;
+            response.statusCode = 404;
             response.statusDescription = "NOT FOUND";
 
             
@@ -49,7 +49,7 @@ namespace InventoryManagmentAPI.Controllers
 
             var response = new InvResponse();
 
-            response.statusCode = 400;
+            response.statusCode = 404;
             response.statusDescription = "NOT FOUND";
             
             if (inventory != null)
@@ -101,7 +101,7 @@ namespace InventoryManagmentAPI.Controllers
             _context.Inventory.Add(inventory);
             await _context.SaveChangesAsync();
             var response = new InvResponse();
-            response.statusCode = 200;
+            response.statusCode = 201;
             response.statusDescription = "Added";
             response.inventoryData.Add(inventory);
             //return CreatedAtAction("GetInventory", new { id = inventory.InventoryId }, inventory);

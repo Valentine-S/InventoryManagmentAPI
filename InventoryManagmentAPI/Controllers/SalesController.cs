@@ -30,7 +30,7 @@ namespace InventoryManagmentAPI.Controllers
 
             var response = new SaleResponse();
 
-            response.statusCode = 400;
+            response.statusCode = 404;
             response.statusDescription = "NOT FOUND";
 
             if (sale != null)
@@ -50,7 +50,7 @@ namespace InventoryManagmentAPI.Controllers
 
             var response = new SaleResponse();
 
-            response.statusCode = 400;
+            response.statusCode = 404;
             response.statusDescription = "NOT FOUND";
             
             if (sale1 != null)
@@ -104,7 +104,7 @@ namespace InventoryManagmentAPI.Controllers
                 _context.Sales.Add(sale);
                 await _context.SaveChangesAsync();
                 //return CreatedAtAction("GetSale", new { id = sale.SaleId }, sale);
-                response.statusCode = 200;
+                response.statusCode = 201;
                 response.statusDescription = "Added";
                 response.saleData.Add(sale);
             }
