@@ -28,8 +28,8 @@ namespace InventoryManagmentAPI.Controllers
 
             var response = new InvResponse();
 
-            response.statusCode = 404;
-            response.statusDescription = "NOT FOUND";
+            response.statusCode = 400;
+            response.statusDescription = "NOT FOUND/DOES NOT EXIST";
 
             
             if (inventory != null)
@@ -49,8 +49,8 @@ namespace InventoryManagmentAPI.Controllers
 
             var response = new InvResponse();
 
-            response.statusCode = 404;
-            response.statusDescription = "NOT FOUND";
+            response.statusCode = 400;
+            response.statusDescription = "NOT FOUND/DOES NOT EXIST";
             
             if (inventory != null)
             {
@@ -61,50 +61,29 @@ namespace InventoryManagmentAPI.Controllers
             
             return response;
         }
-
-        // PUT: api/Inventory/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutInventory(int id, Inventory inventory)
-        {
-            if (id != inventory.InventoryId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(inventory).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!InventoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+       
         // POST: api/Inventory
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<InvResponse>> PostInventory(Inventory inventory)
         {
-            _context.Inventory.Add(inventory);
-            await _context.SaveChangesAsync();
             var response = new InvResponse();
-            response.statusCode = 201;
-            response.statusDescription = "Added";
-            response.inventoryData.Add(inventory);
-            //return CreatedAtAction("GetInventory", new { id = inventory.InventoryId }, inventory);
+            try
+            {
+                _context.Inventory.Add(inventory);
+                await _context.SaveChangesAsync();
+                
+                response.statusCode = 201;
+                response.statusDescription = "Added";
+                response.inventoryData.Add(inventory);
+                //return CreatedAtAction("GetInventory", new { id = inventory.InventoryId }, inventory);
+                
+            }
+            catch (Exception ex)
+            {
+                response.statusCode = 400;
+                response.statusDescription = "Error: Check your request body";
+            }
             return response;
         }
 
@@ -118,8 +97,8 @@ namespace InventoryManagmentAPI.Controllers
 
             if (inventory == null)
             {
-                response.statusCode = 404;
-                response.statusDescription = "The inventory item can not be found";
+                response.statusCode = 400;
+                response.statusDescription = "The inventory item can not be found/Does not exist";
                 return response;
             }
 

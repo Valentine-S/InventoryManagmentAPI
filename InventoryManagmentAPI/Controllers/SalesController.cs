@@ -30,8 +30,8 @@ namespace InventoryManagmentAPI.Controllers
 
             var response = new SaleResponse();
 
-            response.statusCode = 404;
-            response.statusDescription = "NOT FOUND";
+            response.statusCode = 400;
+            response.statusDescription = "NOT FOUND/DOES NOT EXIST";
 
             if (sale != null)
             {
@@ -50,8 +50,8 @@ namespace InventoryManagmentAPI.Controllers
 
             var response = new SaleResponse();
 
-            response.statusCode = 404;
-            response.statusDescription = "NOT FOUND";
+            response.statusCode = 400;
+            response.statusDescription = "NOT FOUND/DOES NOT EXIST";
             
             if (sale1 != null)
             {
@@ -61,38 +61,7 @@ namespace InventoryManagmentAPI.Controllers
             }
             return response;
         }
-
-        // PUT: api/Sales/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSale(int id, Sale sale)
-        {
-            if (id != sale.SaleId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(sale).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SaleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+       
         // POST: api/Sales
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -111,7 +80,7 @@ namespace InventoryManagmentAPI.Controllers
             catch (Exception ex)
             {
                 response.statusCode = 400;
-                response.statusDescription = "Duplicate Entry: {" +sale.InventoryId + "} for InventoryId or InventoryId does not exist. This item has already been sold, please choose a different inventory item.";
+                response.statusDescription = "ERROR:It could be a Duplicate Entry: {" +sale.InventoryId + "} for InventoryId or InventoryId does not exist. This item has already been sold, please choose a different inventory item.";
             }
             return response;
         }
@@ -126,8 +95,8 @@ namespace InventoryManagmentAPI.Controllers
 
             if (sale == null)
             {
-                response.statusCode = 404;
-                response.statusDescription = "The sale can not be found";
+                response.statusCode = 400;
+                response.statusDescription = "The sale can not be found/Does not exist";
                 return response;
             }
 
