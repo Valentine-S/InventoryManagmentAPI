@@ -1,13 +1,13 @@
 # InventoryManagmentAPI
 
-API ENDPOINTS:
+## API ENDPOINTS:
+- /inventory -- GET -- POST -- DELETE
+- /inventory/{id] -- GET -- DELETE
+- /sales     -- GET -- POST -- DELETE
+- /sales/{id} -- GET -- DELETE
 
-/inventory -- GET -- POST -- DELETE
-/inventory/{id] -- GET -- DELETE
-/sales     -- GET -- POST -- DELETE
-/sales/{id} -- GET -- DELETE
-
-POST -- /inventory -- Request Body
+### POST -- /inventory -- Request Body
+```
 {
     "itemName": "Yeezy Boost 350 V2 Zebra",
     "size": "12",
@@ -16,8 +16,9 @@ POST -- /inventory -- Request Body
     "condition": "Brand New",
     "brand": "Yeezy"
 }
-
-POST -- /sales -- Request Body
+```
+### POST -- /sales -- Request Body
+```
 {          
     "inventoryId": 1,
     "datePurchased": "2022-04-25",
@@ -29,8 +30,9 @@ POST -- /sales -- Request Body
     "salePriceAfterFee": 185,
     "profit": 75
 }
-
-Sample Response Body
+```
+### Sample Response Body
+```
 {
     "inventoryData": [
         {
@@ -46,9 +48,10 @@ Sample Response Body
     "statusCode": 200,
     "statusDescription": "FOUND"
 }
+```
+## or  
 
-or 
-
+```
 "saleData": [
         {
             "saleId": 1,
@@ -66,6 +69,6 @@ or
     "statusCode": 200,
     "statusDescription": "FOUND"
 }
-
-Changes From Initial API Idea
+```
+### Changes From Initial API Idea
 - Added CHECK >= 0 Constraint to Retail Price
